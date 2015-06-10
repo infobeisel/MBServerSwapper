@@ -27,3 +27,13 @@
 *.exe
 *.out
 *.app
+
+#logs&other
+*.bmp
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.1.tlog
+*.lastbuildstate
+*.idb
+*.pdb
