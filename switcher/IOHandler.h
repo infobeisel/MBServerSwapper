@@ -6,6 +6,7 @@
 #include <d3d9.h>
 
 static void initAnimation(HWND window);
+static HBITMAP loadingImage;
 DWORD WINAPI ThreadProc(LPVOID lpParam);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 class IOHandler

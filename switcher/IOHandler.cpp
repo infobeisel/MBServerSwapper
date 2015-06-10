@@ -12,6 +12,10 @@
 #define MYMENU_EXIT         (WM_APP + 101)
 #define MYMENU_MESSAGEBOX   (WM_APP + 102) 
 
+#define RENDEROFFSETX 0
+#define RENDEROFFSETY 0
+#define LOADINGSCREENPATH L"loading_screen_1.bmp"
+
 #define HIDEBORDERX 0
 #define HIDEBORDERY 0
 #define HIDEBORDERXR 0
@@ -31,94 +35,24 @@ IOHandler::~IOHandler()
     //dtor
 }
 
-DWORD WINAPI updateLoadingAnimation(LPVOID lpParam) {
-	/*
-	HWND window = GameValueProvider::get()->getGameMainWindow();
-	HBITMAP loadingImage = (HBITMAP)LoadImage(NULL, L"loading_screen_1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	RECT rect;
-	GetWindowRect(
-		window,
-		&rect
-		);
-	std::cout << rect.right << "  " << rect.bottom;
-	PAINTSTRUCT 	ps;
-	HDC 			hdc;
-	BITMAP 			bitmap;
-	HDC 			hdcMem;
-	HGDIOBJ 		oldBitmap;
-	
-		hdc = GetDC(window);
-
-		hdcMem = CreateCompatibleDC(hdc);
-		oldBitmap = SelectObject(hdcMem, loadingImage);
-
-		GetObject(loadingImage, sizeof(bitmap), &bitmap);
-		DWORD res;
-		while (true) {
-			//RedrawWindow(window, 0, 0,	RDW_INTERNALPAINT	);
-			//StretchBlt(hdc, 0, 0, rect.right, rect.bottom, hdcMem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
-			//SendMessageTimeout(window, WM_PAINT, 0, 0, SMTO_BLOCK, 30, &res);
-			RedrawWindow(window, 0, 0,
-				RDW_ERASE | RDW_INVALIDATE
-				);
-
-		
-		}
-
-		SelectObject(hdcMem, oldBitmap);
-		DeleteDC(hdcMem);
-		ReleaseDC(window, hdc);*/
-	return 1;
-}
 
 void IOHandler::startLoadingAnimation(HWND window) {
-	/*hThreadArray[0] = CreateThread(
-		NULL,                   // default security attributes
-		0,                      // use default stack size  
-		updateLoadingAnimation,       // thread function name
-		0,          // argument to thread function 
-		0,                      // use default creation flags 
-		&dwThreadIdArray[0]);   // returns the thread identifier 
-	 */
 	
-	//DWORD procId;
-	////GetWindowThreadProcessId(window, &procId);
-//int res = myInjector.Inject(TEXT("E:\\CppProjects\\switcher\\switcher\\ConsoleApplication1.dll"), TEXT("mb_warband.exe"), procId);
-//	SetForegroundWindow(
-	//	window
-	//	);
-	//std::cout << "dll injected " << res << "\n";
 	RECT rect;
 	GetWindowRect(window, &rect);
 	SetWindowPos(animWindow, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
 	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
 	initAnimation(animWindow);
 	ShowCursor(FALSE);
-		
-
 }
 
 void IOHandler::stopLoadingAnimation(HWND window) {
-	//TerminateThread(hThreadArray[0], 0);
-
-	//BUGGY UGLY REMOVE!
-	//HWND buggyHWND = FindWindowEx(window,NULL,NULL, L"Loading Screen");
-	//DestroyWindow(window);
-	//ShowWindow(buggyHWND, SW_HIDE);
-
+	
 	RECT rect;
 	GetWindowRect(window, &rect);
 	SetWindowPos(animWindow,NULL, -20, -40, 0, 0, SWP_NOACTIVATE);
 	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
-	//initAnimation(animWindow);
-	//ShowCursor(FALSE);
 
-
-	//do it clean!!! later...
-	//CInjector myInjector;
-	//int res = myInjector.Unload(TEXT("ConsoleApplication1.dll"), TEXT("mb_warband.exe"));
-	//std::cout << "dll unloaded " << res << "\n";
-	//SendMessage(window, WM_SETREDRAW, TRUE, 0);
 }
 
 void IOHandler::initAnimationWindow(HWND window) {
@@ -183,16 +117,6 @@ void IOHandler::fireMouseClick(int button) {
 
 }
 
-
-
-
-
-
-
-int start = 0;					//Flag for knowing if already loaded
-
-//WndProc for the new window
-static DWORD getBaseAdress(DWORD dwPID);
 //Register our windows Class
 BOOL RegisterWindowClass(wchar_t szClassName[])
 {
@@ -241,6 +165,8 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	GetWindowRect(hwnd, &rect);
 	SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
 	ShowWindow(hwnd, SW_SHOWNOACTIVATE);
+	ShowCursor(FALSE);
+
 	initAnimation(hwnd);
 	//ShowCursor(FALSE);
 
@@ -258,56 +184,22 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 //Our new windows proc
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
 	std::wstringstream wss;
 	std::wstring str;
 	wss << message;
 	wss >> str;
 	LPCWSTR result = str.c_str();
-	//HDC dc = GetDC(hwnd);
-	//TextOut(dc, 5, 5, result, 1);
-	//ReleaseDC(hwnd, dc);
-
-
-
 	switch (message)
 	{
-
 	case WM_MOUSEACTIVATE:
 		return MA_NOACTIVATEANDEAT;
-
 	default:
 		return DefWindowProc(hwnd, message, wParam, lParam);
-
 	}
-
-
-
 
 	return 0;
 }
 
-
-
-
-#define RENDEROFFSETX 0
-#define RENDEROFFSETY 0
-#define LOADINGSCREENPATH L"loading_screen_1.bmp"
-
-static HWND workWindow;
-static WNDPROC wndprocOrig;
-static UINT subclassId;
-static DWORD refData;
-static HBITMAP loadingImage;
-/*
-static HDC LoadBitmapToHDC(LPCTSTR bitmap_name, HBITMAP& hBitmap)
-{
-hBitmap = ::LoadBitmap(::AfxGetInstanceHandle(), bitmap_name);
-// Create a MemDC to draw to.
-HDC MemDC = ::CreateCompatibleDC(NULL);
-SelectObject(MemDC, hBitmap);
-return MemDC;
-}*/
 static void initAnimation(HWND window) {
 	loadingImage = (HBITMAP)LoadImage(0, LOADINGSCREENPATH, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	DWORD error = GetLastError();
