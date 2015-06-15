@@ -4,11 +4,16 @@
 #define MAX_THREADS 1
 #include "injector.h"
 #include <d3d9.h>
-
+#include <vector>
 static void initAnimation(HWND window);
-static HBITMAP loadingImage;
+
+static void 	diceNewImage(int numImages);
+static void redraw(HWND window, std::vector<HBITMAP>* ims);
+
+
 DWORD WINAPI ThreadProc(LPVOID lpParam);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 class IOHandler
 {
     public:
@@ -26,6 +31,9 @@ class IOHandler
 
 		HANDLE getAnimationThread() { return hThreadArray[0]; }
 		void setAnimWindow(HWND window) { animWindow = window; };
+
+		int activeLoadingImageIndex;
+		std::vector<HBITMAP> loadingImages;
     protected:
     private:
         static IOHandler* instance;
@@ -33,6 +41,7 @@ class IOHandler
 		HANDLE  hThreadArray[MAX_THREADS];
 		CInjector myInjector;
 		HWND animWindow;
+
 
 
 		

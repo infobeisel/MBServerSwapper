@@ -12,6 +12,7 @@ class GameValueProvider
         static GameValueProvider* get();
         virtual ~GameValueProvider();
         std::string getCurrentChosenIp();
+		int getCurrentChosenPort();
         int getCurrentChosenServerListIndex();
         void setCurrentChosenServerListIndex(int i);
 

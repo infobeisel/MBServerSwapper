@@ -14,8 +14,8 @@
 
 #define RENDEROFFSETX 0
 #define RENDEROFFSETY 0
-#define LOADINGSCREENPATH L"loading_screen_1.bmp"
-
+#define LOADINGSCREENPATHS {L"loading_screen_1.bmp",L"loading_screen_2.bmp",L"loading_screen_2.bmp"}
+#define LOADINGSCREENPATHSNUM 3
 #define HIDEBORDERX 0
 #define HIDEBORDERY 0
 #define HIDEBORDERXR 0
@@ -44,6 +44,7 @@ void IOHandler::startLoadingAnimation(HWND window) {
 	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
 	initAnimation(animWindow);
 	ShowCursor(FALSE);
+
 }
 
 void IOHandler::stopLoadingAnimation(HWND window) {
@@ -164,7 +165,8 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	IOHandler::get()->setAnimWindow(hwnd);
 	GetWindowRect(hwnd, &rect);
 	SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
-	ShowWindow(hwnd, SW_SHOWNOACTIVATE);
+	//ShowWindow(hwnd, SW_SHOWNOACTIVATE);
+	ShowWindow(hwnd, SW_HIDE);
 	ShowCursor(FALSE);
 
 	initAnimation(hwnd);
@@ -201,29 +203,47 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 static void initAnimation(HWND window) {
-	loadingImage = (HBITMAP)LoadImage(0, LOADINGSCREENPATH, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	std::vector<LPCWSTR> imagepaths = LOADINGSCREENPATHS;
+	//load all images initially
+	for (int i = 0; i < LOADINGSCREENPATHSNUM; i++) {
+		IOHandler::get()->loadingImages.push_back((HBITMAP)LoadImage(0, imagepaths.at(i), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE));
+
+		
+	}
+	
+	//select a loading image
+	diceNewImage(3);
+	redraw(window,& IOHandler::get()->loadingImages);
+	
+}
+
+static void diceNewImage(int numImages) {
+	IOHandler::get()->activeLoadingImageIndex = rand() % numImages;
+}
+
+
+static void redraw(HWND window,std::vector<HBITMAP>* images){
 	DWORD error = GetLastError();
 
 	BITMAP 			bitmap;
 	HDC 			hdcMem;
 	HGDIOBJ 		oldBitmap;
-
 	RECT rect;
 	GetWindowRect(window, &rect); // resolution
 	//error section
-	HDC hdc = GetDC(window);
+
 	std::wstringstream wss;
 	std::wstring str;
 	wss << error;
-	wss << LOADINGSCREENPATH;
 	wss >> str;
 	LPCWSTR result = str.c_str();
-	if (loadingImage == NULL) TextOut(hdc, 50, 50, result, 44);
-
+	int index = IOHandler::get()->activeLoadingImageIndex;
+	HDC hdc = GetDC(window);
+	if (images->at(index) == NULL) TextOut(hdc, 50, 50, result, 44);
 	//Draw
 	hdcMem = CreateCompatibleDC(hdc);
-	oldBitmap = SelectObject(hdcMem, loadingImage);
-	GetObject(loadingImage, sizeof(bitmap), &bitmap);
+	oldBitmap = SelectObject(hdcMem, images->at(index));
+	GetObject(images->at(index), sizeof(bitmap), &bitmap);
 	DWORD res;
 	StretchBlt(hdc, 0, RENDEROFFSETY, rect.right + RENDEROFFSETX, rect.bottom + RENDEROFFSETY, hdcMem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 	SelectObject(hdcMem, oldBitmap);

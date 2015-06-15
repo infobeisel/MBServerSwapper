@@ -14,6 +14,8 @@ class ServerGraph
         //std::string getMapName(std::string nodeId);
         std::string getNodeIdFromMapName(std::string mapName);
         std::string getIp(std::string nodeId);
+		int getPort(std::string nodeId);
+
     protected:
     private:
         std::map<std::string,std::vector<std::string>>* graph;

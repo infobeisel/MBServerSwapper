@@ -108,6 +108,18 @@ std::string GameValueProvider::getCurrentChosenIp() {
 	std::string req(res);
 	return req;
 }
+int GameValueProvider::getCurrentChosenPort() {
+	//port pointer
+	int result;
+	DWORD addr = dereferencePointer(SERVER_INFO_PORT_POINTER_OFFSET,
+		SERVER_INFO_PORT_OFFSETS);
+	ReadProcessMemory(gameProcess, (void*)addr, &result, sizeof(result), NULL);
+	return result;
+
+
+}
+
+
 
 //deprecated
 /*

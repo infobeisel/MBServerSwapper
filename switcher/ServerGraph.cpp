@@ -72,6 +72,11 @@ std::string ServerGraph::getIp(std::string nodeId) {
         std::vector<std::string> val=graph->at(nodeId);
         return (val.at(FILE_COLUMN_IP_INDEX));
 }
+int ServerGraph::getPort(std::string nodeId) {
+	std::vector<std::string> val = graph->at(nodeId);
+	return std::stoi(val.at(FILE_COLUMN_PORT_INDEX));
+}
+
 
 
 std::string ServerGraph::getNodeIdFromMapName(std::string mapName) {

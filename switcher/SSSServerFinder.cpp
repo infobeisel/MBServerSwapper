@@ -41,6 +41,8 @@ void SSSServerFinder::process()
     std::cout << "cur evaluated node:  " << currentNodeId << "\n";
     std::string node = graph->traverseGraph(currentNodeId,this->wishedTravelDir);
     std::string wantedIp = graph->getIp(node);
+	//more than one dedicated servers can run on the same ip, so also check the port!
+	int			wantedPort = graph->getPort(node);
     //until server found
     while (true)
     {
@@ -52,9 +54,10 @@ void SSSServerFinder::process()
             Sleep(5);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
-            std::cout << g->getCurrentChosenIp() << "\n";
-            //if we found it
-            if(wantedIp.compare(g->getCurrentChosenIp()) == 0)
+			std::cout << g->getCurrentChosenIp() << "\n";
+			std::cout << g->getCurrentChosenPort() << "\n";
+			//if we found it
+			if (wantedIp.compare(g->getCurrentChosenIp()) == 0 && wantedPort == (g->getCurrentChosenPort()))
             {
                 serverFound = true;
                 return;
