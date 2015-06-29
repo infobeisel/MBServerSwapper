@@ -2,8 +2,6 @@
 
 SSState::SSState()
 {
-    curLocation = std::string();
-    wishedTravelDir = -1;
 }
 
 SSState::~SSState()
@@ -26,6 +24,4 @@ SSState* SSState::getNext(){
     }
 }
 
-void SSState::setCurLocation(std::string loc){this->curLocation = loc;};
-void SSState::setWishedTravelDir(int dir){this->wishedTravelDir = dir;};
 

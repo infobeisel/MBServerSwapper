@@ -18,7 +18,7 @@
 
 /** Server Graph File Name to read from**/
 #define SERVER_GRAPH_URL L"servergraph"
-#define SERVER_GRAPH_HTTP_APPEND "/ow.php?event=8"
+//#define SERVER_GRAPH_HTTP_APPEND "/ow.php?event=8"
 
 
 /** Time in ms to wait between clicks  (=menu traversation) **/
@@ -43,23 +43,40 @@
 #define FILE_COLUMN_IP_INDEX 6
 #define FILE_COLUMN_PORT_INDEX 7
 //base adress (on my machine, is not referenced at all in this proj): 4194304
+//s0 10302824
 //s1 addr_offset: 10302968
 //s2 addr_offset: 10303112
 //s3 10303256
 //s4 10303400
 
-/** travel request params **/
+// string reg offsets
+#define STRING_REG_0_ADDR_OFFSET 10302824
+#define STRING_REG_1_ADDR_OFFSET 10302968
+#define STRING_REG_2_ADDR_OFFSET 10303112
+#define STRING_REG_3_ADDR_OFFSET 10303256
+#define STRING_REG_4_ADDR_OFFSET 10303400
+
+//reg offsets
+#define REG_0_ADDR_OFFSET 10293592
+#define REG_1_ADDR_OFFSET 10293600
+#define REG_2_ADDR_OFFSET 10293608
+#define REG_3_ADDR_OFFSET 10293616
+
+/** travel request params DEPRECATED**/
 #define TRAVEL_REQUEST_NORTH "will travel to the North"
 #define TRAVEL_REQUEST_WEST "will travel to the West"
 #define TRAVEL_REQUEST_SOUTH "will travel to the South"
 #define TRAVEL_REQUEST_EAST "will travel to the East"
+//new travel request
+#define TRAVEL_REQUEST_MESSAGE "will travel to the"
 //
-#define TRAVEL_REQUEST_ADDR_OFFSET 10302968
-#define TRAVEL_REQUEST_STRING_LENGTH 24
+#define TRAVEL_REQUEST_ADDR_OFFSET 10303112
+//deprecated #define TRAVEL_REQUEST_STRING_LENGTH 24
+#define TRAVEL_REQUEST_STRING_LENGTH 18
 
 /** character screen event **/
 #define CHAR_SCREEN_REACHED_EVENT_MESSAGE "character menu reached"
-#define CHAR_SCREEN_REACHED_EVENT_ADDR_OFFSET 10303112
+#define CHAR_SCREEN_REACHED_EVENT_ADDR_OFFSET 10303256
 #define CHAR_SCREEN_REACHED_EVENT_STRING_LENGTH 22
 
 /** current map name **/

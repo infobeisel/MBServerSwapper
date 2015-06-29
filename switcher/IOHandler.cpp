@@ -167,7 +167,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
 	//ShowWindow(hwnd, SW_SHOWNOACTIVATE);
 	ShowWindow(hwnd, SW_HIDE);
-	ShowCursor(FALSE);
+	ShowCursor(TRUE);
 
 	initAnimation(hwnd);
 	//ShowCursor(FALSE);

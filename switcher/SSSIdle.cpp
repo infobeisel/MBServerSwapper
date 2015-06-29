@@ -16,21 +16,26 @@ SSSIdle::~SSSIdle()
 
 
  void SSSIdle::process() {
-    int t = GameValueProvider::get()->getTravelDirection();
-
-  if(t != TRAVEL_DIR_NOOP) {
+    //int t = GameValueProvider::get()->getTravelDirection();
+	 bool t = GameValueProvider::get()->wantsTravel();
+  if(t) {
       //next() will give another state than this
         this->wantsSwitch = true;
         //store data
-        this->wishedTravelDir = t;
-        //this->curIp = GameValueProvider::get()->getCurrentChosenIp();
+		this->iplength = GameValueProvider::get()->getRegAsInt(0);
+		this->ip = GameValueProvider::get()->getStringReg(0, this->iplength);
+		this->port = GameValueProvider::get()->getRegAsInt(1);
+		this->passwordlength = GameValueProvider::get()->getRegAsInt(2);
+		this->password = GameValueProvider::get()->getStringReg(1, this->passwordlength);
 
-        this->curLocation = GameValueProvider::get()->getCurrentChosenMapName();
+        //this->wishedTravelDir = t;
+        //this->curIp = GameValueProvider::get()->getCurrentChosenIp();
+		//this->curLocation = GameValueProvider::get()->getCurrentChosenMapName();
 
     }
  }
  void SSSIdle::entry() {
-    std::cout << "wait for switch-server-command" << "\n";
+    std::cout << "wait for server-swap-request" << "\n";
     //flushing after waiting a short time
     Sleep(CLICK_WAIT_TIME);
     GameValueProvider::get()->flushInCharScreenMessage();
@@ -50,8 +55,11 @@ SSSIdle::~SSSIdle()
     if(this->wantsSwitch) {
         SSSServerListNavigator* newState = new SSSServerListNavigator();
         //copy values
-        newState->setCurLocation(this->curLocation);
-        newState->setWishedTravelDir(this->wishedTravelDir);
+		newState->ip = (this->ip);
+		newState->iplength = (this->iplength);
+		newState->password = (this->password);
+		newState->port = (this->port);
+		newState->passwordlength = (this->passwordlength);
         ret = newState;
     }
     return ret;

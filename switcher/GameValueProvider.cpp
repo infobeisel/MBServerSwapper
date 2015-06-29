@@ -137,7 +137,7 @@ bool GameValueProvider::isInCharScreen() {
     charScreen[CHAR_SCREEN_REACHED_EVENT_STRING_LENGTH] = 0;
     std::string screenmessage = std::string(charScreen);
     std::string shouldbe = std::string(CHAR_SCREEN_REACHED_EVENT_MESSAGE);
-    std::cout << screenmessage << " should be    " << shouldbe  << "\n";
+    //std::cout << screenmessage << " should be    " << shouldbe  << "\n";
 
    int ret = false;
     if     ((screenmessage.compare(shouldbe)) == 0) ret = true;
@@ -201,7 +201,7 @@ int GameValueProvider::getPingLimitFilterIndex() {
    return (getIntValue(addr));
 }
 
-
+//DEPRECATED
 int GameValueProvider::getTravelDirection() {
     SIZE_T  lpNumberOfBytesRead;
     char travelReq[TRAVEL_REQUEST_STRING_LENGTH + 1] = {};
@@ -223,6 +223,94 @@ void GameValueProvider::flushTravelDirectionMessage() {
     DWORD addr= (gameBaseAdress + TRAVEL_REQUEST_ADDR_OFFSET);
     WriteProcessMemory(gameProcess,(void*)addr,&travelReq,TRAVEL_REQUEST_STRING_LENGTH ,NULL);
 }
+
+bool GameValueProvider::wantsTravel() {
+	SIZE_T  lpNumberOfBytesRead;
+	char travelReq[TRAVEL_REQUEST_STRING_LENGTH + 1] = {};
+	DWORD addr = (gameBaseAdress + TRAVEL_REQUEST_ADDR_OFFSET);
+	ReadProcessMemory(gameProcess, (void*)addr, &travelReq, TRAVEL_REQUEST_STRING_LENGTH, &lpNumberOfBytesRead);
+	//terminate symbol.no.
+	travelReq[TRAVEL_REQUEST_STRING_LENGTH] = 0;
+	std::string req = std::string(travelReq);
+	bool ret = false;
+	if (req.compare(std::string(TRAVEL_REQUEST_MESSAGE)) == 0) ret = true;
+	std::cout << req << "should be " << TRAVEL_REQUEST_MESSAGE << "\n";
+
+	return ret;
+}
+std::string GameValueProvider::getStringReg(int regnum, int length) {
+	SIZE_T  lpNumberOfBytesRead;
+	//char travelReq[length + 1] = {};
+	std::vector<char> travelReq(length + 1); // j elements set to 0
+	
+	DWORD addr = gameBaseAdress;
+	switch (regnum) {
+	case 0:
+		addr = (gameBaseAdress + STRING_REG_0_ADDR_OFFSET);
+		break;
+	case 1:
+		addr = (gameBaseAdress + STRING_REG_1_ADDR_OFFSET);
+		break;
+	case 2:
+		addr = (gameBaseAdress + STRING_REG_2_ADDR_OFFSET);
+		break;
+	case 3:
+		addr = (gameBaseAdress + STRING_REG_3_ADDR_OFFSET);
+		break;
+	case 4:
+		addr = (gameBaseAdress + STRING_REG_4_ADDR_OFFSET);
+		break;
+	}
+	ReadProcessMemory(gameProcess, (void*)addr, &travelReq[0], length, &lpNumberOfBytesRead);
+	std::string req(travelReq.begin(), travelReq.end());
+	return req;
+}
+int GameValueProvider::getRegAsInt(int regnum) {
+	SIZE_T  lpNumberOfBytesRead;
+	int reg;
+	DWORD addr = gameBaseAdress;
+	switch (regnum) {
+	case 0:
+		addr = (gameBaseAdress + REG_0_ADDR_OFFSET);
+		break;
+	case 1:
+		addr = (gameBaseAdress + REG_1_ADDR_OFFSET);
+		break;
+	case 2:
+		addr = (gameBaseAdress + REG_2_ADDR_OFFSET);
+		break;
+	case 3:
+		addr = (gameBaseAdress + REG_3_ADDR_OFFSET);
+		break;
+	}
+	ReadProcessMemory(gameProcess, (void*)addr, &reg, sizeof(reg), &lpNumberOfBytesRead);
+	return reg;
+}
+float GameValueProvider::getRegAsFloat(int regnum) {
+	SIZE_T  lpNumberOfBytesRead;
+	float reg;
+	DWORD addr = gameBaseAdress;
+	switch (regnum) {
+	case 0:
+		addr = (gameBaseAdress + REG_0_ADDR_OFFSET);
+		break;
+	case 1:
+		addr = (gameBaseAdress + REG_1_ADDR_OFFSET);
+		break;
+	case 2:
+		addr = (gameBaseAdress + REG_2_ADDR_OFFSET);
+		break;
+	case 3:
+		addr = (gameBaseAdress + REG_3_ADDR_OFFSET);
+		break;
+	}
+	ReadProcessMemory(gameProcess, (void*)addr, &reg, sizeof(reg), &lpNumberOfBytesRead);
+	return reg;
+
+}
+
+
+
 
 HWND GameValueProvider::getGameMainWindow() {return gameMainWindow;}
 

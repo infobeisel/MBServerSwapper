@@ -41,7 +41,7 @@ std::vector<std::string> FileParser::readEntries()
 		//up to the end of file
 		while (p != NULL) {
 			std::string str = std::string(p);
-			std::cout << str << "\n";
+			//std::cout << str << "\n";
 			p = strtok(NULL, delimiter);
 			res.insert(res.end(), str);
 		}

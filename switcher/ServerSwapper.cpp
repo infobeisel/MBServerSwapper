@@ -20,6 +20,8 @@ void ServerSwapper::run() {
     state->process();
     //do we need a new state?
     state = (state->getNext());
+	std::cout << "wants trave" << "\n";
+
 }
 
 

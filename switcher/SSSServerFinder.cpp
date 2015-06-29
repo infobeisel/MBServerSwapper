@@ -14,10 +14,10 @@ SSSServerFinder::~SSSServerFinder()
 }
 void SSSServerFinder::entry()
 {
-    std::cout << "lookup server in graph..." << "\n";
-    graph = new ServerGraph();
+	//std::cout << "lookup server in graph..." << "\n";
+	//graph = new ServerGraph();
    // graph->setUpGraph(FileParser::get());
-	graph->setUpGraph(FileParser::get());
+	//graph->setUpGraph(FileParser::get());
 
 
 
@@ -36,13 +36,13 @@ void SSSServerFinder::process()
     GameValueProvider* g = GameValueProvider::get();
     IOHandler* hnd = IOHandler::get();
     //curLocation contains current Map Name
-    std::cout << "cur location was  " << curLocation << "\n";
-    std::string currentNodeId = graph->getNodeIdFromMapName(this->curLocation);
-    std::cout << "cur evaluated node:  " << currentNodeId << "\n";
-    std::string node = graph->traverseGraph(currentNodeId,this->wishedTravelDir);
-    std::string wantedIp = graph->getIp(node);
+    //std::cout << "cur location was  " << curLocation << "\n";
+    //std::string currentNodeId = graph->getNodeIdFromMapName(this->curLocation);
+    //std::cout << "cur evaluated node:  " << currentNodeId << "\n";
+    //std::string node = graph->traverseGraph(currentNodeId,this->wishedTravelDir);
+    //std::string wantedIp = graph->getIp(node);
 	//more than one dedicated servers can run on the same ip, so also check the port!
-	int			wantedPort = graph->getPort(node);
+	//int			wantedPort = graph->getPort(node);
     //until server found
     while (true)
     {
@@ -54,10 +54,10 @@ void SSSServerFinder::process()
             Sleep(5);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
-			std::cout << g->getCurrentChosenIp() << "\n";
-			std::cout << g->getCurrentChosenPort() << "\n";
+			//std::cout << g->getCurrentChosenIp() << "\n";
+			//std::cout << g->getCurrentChosenPort() << "\n";
 			//if we found it
-			if (wantedIp.compare(g->getCurrentChosenIp()) == 0 && wantedPort == (g->getCurrentChosenPort()))
+			if ((this->ip).compare(g->getCurrentChosenIp()) == 0 && this->port == (g->getCurrentChosenPort()))
             {
                 serverFound = true;
                 return;
@@ -68,13 +68,13 @@ void SSSServerFinder::process()
             Sleep(5);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
-            std::cout << g->getCurrentChosenIp() << "\n";
+            //std::cout << g->getCurrentChosenIp() << "\n";
             //if we found it
-            if(wantedIp.compare(g->getCurrentChosenIp()) == 0)
-            {
-                serverFound = true;
-                return;
-            }
+			if ((this->ip).compare(g->getCurrentChosenIp()) == 0 && this->port == (g->getCurrentChosenPort()))
+			{
+				serverFound = true;
+				return;
+			}
         }
 
         //perform scrolldowns
@@ -92,8 +92,11 @@ SSState* SSSServerFinder::next()
     {
         SSSServerJoiner* newState = new SSSServerJoiner();
         //copy values
-        newState->setCurLocation(this->curLocation);
-        newState->setWishedTravelDir(this->wishedTravelDir);
+		newState->ip = (this->ip);
+		newState->iplength = (this->iplength);
+		newState->password = (this->password);
+		newState->port = (this->port);
+		newState->passwordlength = (this->passwordlength);
         ret = newState;
     }
     return ret;

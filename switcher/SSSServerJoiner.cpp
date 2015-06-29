@@ -13,6 +13,7 @@ SSSServerJoiner::~SSSServerJoiner()
 }
 
 void SSSServerJoiner::process() {
+	//TODO type in password
     //click on join
     IOHandler* hnd = IOHandler::get();
     hnd->setCursorPos(BUTTON_JOIN_SERVER_X,BUTTON_JOIN_SERVER_Y);
@@ -41,8 +42,11 @@ SSState* SSSServerJoiner::next()
     {
         SSSSpawnAndPositioner* newState = new SSSSpawnAndPositioner();
         //copy values
-        newState->setCurLocation(this->curLocation);
-        newState->setWishedTravelDir(this->wishedTravelDir);
+		newState->ip = (this->ip);
+		newState->iplength = (this->iplength);
+		newState->password = (this->password);
+		newState->port = (this->port);
+		newState->passwordlength = (this->passwordlength);
         ret = newState;
     }
     return ret;

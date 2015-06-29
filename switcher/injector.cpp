@@ -26,7 +26,7 @@ int CInjector::Inject(std::wstring dllPath, std::wstring processName, DWORD pId)
 	void* pRemoteString = 0;
 	FARPROC pLoadLibrary;
 	std::wstring dllName = StripPath(dllPath);
-	std::cout << dllName.c_str() << "\n";
+	//std::cout << dllName.c_str() << "\n";
 	try {
 		// if pId not already specified, look for it
 		if (!pId) {

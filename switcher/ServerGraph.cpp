@@ -24,17 +24,17 @@ void ServerGraph::setUpGraph(FileParser* parser)
     {
         //take as key
         std::string key = *it;
-        std::cout << "key: " << *it << " vals:  ";
+        //std::cout << "key: " << *it << " vals:  ";
         std::advance(it,1);
         //take as value
         std::vector<std::string> val;
         for(int i=0; i < FILE_NUM_COLUMNS - 1 && it != res.end(); i++)
         {
-            std::cout << *it << "   ";
+            //std::cout << *it << "   ";
             val.insert(val.end(),*it);
             std::advance(it,1);
         }
-        std::cout << "\n" ;
+        //std::cout << "\n" ;
         graph->insert( std::make_pair(key, val) );
     }
 
@@ -45,7 +45,7 @@ void ServerGraph::setUpGraph(FileParser* parser)
 
 std::string ServerGraph::traverseGraph(std::string currentNodeId, int travelDirection) {
 
-      std::cout << "graph, gimme  " << currentNodeId << "\n";
+      //std::cout << "graph, gimme  " << currentNodeId << "\n";
       std::vector<std::string> val;
       try {
         val=graph->at(currentNodeId);
@@ -86,7 +86,7 @@ std::string ServerGraph::getNodeIdFromMapName(std::string mapName) {
     while(it != graph->end()) {
         val = it->second;
         std::string curName = val.at(FILE_COLUMN_MAP_NAME_INDEX);
-        std::cout << "temp curName |" << curName <<"|  wanted: |" << mapName << "|\n";
+        //std::cout << "temp curName |" << curName <<"|  wanted: |" << mapName << "|\n";
         if((curName.compare(mapName)) == 0) break;
         nodeindex++;
         std::advance(it,1);

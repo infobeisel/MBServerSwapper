@@ -14,7 +14,7 @@ SSSServerListNavigator::~SSSServerListNavigator()
 
 void SSSServerListNavigator::entry(){
 
-    std::cout << "ServerListNavigator: go to server list..." << "\n";
+    std::cout << "go to server list..." << "\n";
 	//start the loading animation
 	//IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
 
@@ -91,8 +91,11 @@ SSState* SSSServerListNavigator::next(){
     if(isInServerList) {
         SSSServerFinder* newState = new SSSServerFinder();
          //copy values
-        newState->setCurLocation(this->curLocation);
-        newState->setWishedTravelDir(this->wishedTravelDir);
+		newState->ip = (this->ip);
+		newState->iplength = (this->iplength);
+		newState->password = (this->password);
+		newState->port = (this->port);
+		newState->passwordlength = (this->passwordlength);
         ret = newState;
     }
     return ret;

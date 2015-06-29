@@ -23,13 +23,14 @@ SocketManager::~SocketManager()
 
 
 void SocketManager::init() {
-    //wait for game process
+	std::cout << "\nServer-Swap-Tool brought to you by piluspalus aka Henker \n \n";
+	//wait for game process
     HWND found = FindWindowW(NULL,GAME_NAME);
-    std::cout << "Waiting for game to be opened";
+    std::cout << "Searching for game... (NOTE: Open this tool, when and only when you are already ingame, NOT in the launcher!) \n";
     while(found == NULL) {
         found = FindWindowW(NULL,GAME_NAME);
     }
-    std::cout << "\n" << "game opened"<< "\n";
+    std::cout << "\n" << "game found!"<< "\n";
 
     // get the process id out of the window handle
     DWORD processId;

@@ -27,10 +27,17 @@ class GameValueProvider
         int getMatchModeFilterIndex();
         int getPingLimitFilterIndex();
 
-        /** returns direction, the player wants to travel.**/
+        /** returns direction, the player wants to travel.DEPRECATED**/
         int getTravelDirection();
         void flushTravelDirectionMessage();
-        /** events (means they return only temporarily true although the semantic statement stays true)**/
+
+
+		bool wantsTravel();
+		std::string getStringReg(int regnum,int length);
+		int getRegAsInt(int regnum);
+		float getRegAsFloat(int regnum);
+
+		/** events (means they return only temporarily true although the semantic statement stays true)**/
         // deprecated bool isInServerListScreen();
         bool isInCharScreen();
         void flushInCharScreenMessage();

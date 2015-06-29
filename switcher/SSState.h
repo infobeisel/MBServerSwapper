@@ -24,13 +24,21 @@ public:
     /** entry method which is called each time the state changed **/
     virtual void entry() {};
 	virtual void exit() {};
-    void setCurLocation(std::string loc);
-    void setWishedTravelDir(int dir);
+
+	//target ip
+	std::string ip;
+	//target ip length
+	int iplength;
+	//target port
+	int port;
+	//target password
+	std::string password;
+	///target password length;
+	int passwordlength;
+
 protected:
-    /** wished travel direction **/
-    int wishedTravelDir;
-    /** cur location  **/
-    std::string curLocation;
+
+	
 
 
 
