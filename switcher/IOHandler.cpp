@@ -14,7 +14,7 @@
 
 #define RENDEROFFSETX 0
 #define RENDEROFFSETY 0
-#define LOADINGSCREENPATHS {L"loading_screen_1.bmp",L"loading_screen_2.bmp",L"loading_screen_2.bmp"}
+#define LOADINGSCREENPATHS {L"loading_screen_1.bmp",L"loading_screen_2.bmp",L"loading_screen_3.bmp"}
 #define LOADINGSCREENPATHSNUM 3
 #define HIDEBORDERX 0
 #define HIDEBORDERY 0

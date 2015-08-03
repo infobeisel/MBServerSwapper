@@ -27,6 +27,8 @@ class GameValueProvider
         int getMatchModeFilterIndex();
         int getPingLimitFilterIndex();
 
+		bool îsRetrievingServerInfos();
+
         /** returns direction, the player wants to travel.DEPRECATED**/
         int getTravelDirection();
         void flushTravelDirectionMessage();

@@ -7,6 +7,8 @@
 SSSIdle::SSSIdle()
 {
     this->wantsSwitch = false;
+	
+
 }
 
 SSSIdle::~SSSIdle()
@@ -41,6 +43,7 @@ SSSIdle::~SSSIdle()
     GameValueProvider::get()->flushInCharScreenMessage();
     GameValueProvider::get()->flushIsJoinedServerMessage();
     GameValueProvider::get()->flushTravelDirectionMessage();
+
 
 
 }

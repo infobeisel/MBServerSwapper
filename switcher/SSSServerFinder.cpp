@@ -28,7 +28,10 @@ void SSSServerFinder::entry()
     IOHandler* hnd = IOHandler::get();
     hnd->setCursorPos(BUTTON_REFRESH_SERVER_LIST_X,BUTTON_REFRESH_SERVER_LIST_Y);
     Sleep(5);
-    hnd->fireMouseClick(MOUSE_LEFT_CLICK);
+	if (GameValueProvider::get()->îsRetrievingServerInfos())
+	{
+		hnd->fireMouseClick(MOUSE_LEFT_CLICK);
+	}
     Sleep(CLICK_WAIT_TIME);
 }
 void SSSServerFinder::process()
@@ -54,8 +57,8 @@ void SSSServerFinder::process()
             Sleep(5);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
-			//std::cout << g->getCurrentChosenIp() << "\n";
-			//std::cout << g->getCurrentChosenPort() << "\n";
+			std::cout <<"search |" <<  (this->ip) << "::" << this->port <<"|\n|";
+			std::cout << g->getCurrentChosenIp() << "::" << g->getCurrentChosenPort() << "|\n|";
 			//if we found it
 			if ((this->ip).compare(g->getCurrentChosenIp()) == 0 && this->port == (g->getCurrentChosenPort()))
             {
@@ -68,8 +71,8 @@ void SSSServerFinder::process()
             Sleep(5);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
-            //std::cout << g->getCurrentChosenIp() << "\n";
-            //if we found it
+			std::cout << g->getCurrentChosenIp() << "::" << g->getCurrentChosenPort() << "\n\n";
+			//if we found it
 			if ((this->ip).compare(g->getCurrentChosenIp()) == 0 && this->port == (g->getCurrentChosenPort()))
 			{
 				serverFound = true;

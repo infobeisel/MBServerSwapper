@@ -103,7 +103,7 @@ std::string GameValueProvider::getCurrentChosenIp() {
 	addr = dereferencePointer(SERVER_INFO_IP_POINTER_OFFSET,
 		SERVER_INFO_IP_OFFSETS);
 	char res[100];
-	res[length] = '\0';
+	for (int i = 0; i < 100; i++) res[i] = '\0';
 	ReadProcessMemory(gameProcess, (void*)addr, &res, length, NULL);
 	std::string req(res);
 	return req;
@@ -121,14 +121,13 @@ int GameValueProvider::getCurrentChosenPort() {
 
 
 
-//deprecated
-/*
-bool GameValueProvider::isInServerListScreen() {
+
+bool GameValueProvider::îsRetrievingServerInfos() {
     DWORD addr = (gameBaseAdress + SERVER_LIST_INFO_IS_IN_SERVER_LIST_OFFSET);
     int res = 0;
     ReadProcessMemory(gameProcess,(void*)addr,&res,sizeof(res) ,NULL);
     return (res == SERVER_LIST_INFO_IS_IN_SERVER_LIST_TRUE_VAL) ? true : false;
-}*/
+}
 bool GameValueProvider::isInCharScreen() {
     char charScreen[CHAR_SCREEN_REACHED_EVENT_STRING_LENGTH + 1] = {};
     DWORD addr= (gameBaseAdress + CHAR_SCREEN_REACHED_EVENT_ADDR_OFFSET);
@@ -234,15 +233,14 @@ bool GameValueProvider::wantsTravel() {
 	std::string req = std::string(travelReq);
 	bool ret = false;
 	if (req.compare(std::string(TRAVEL_REQUEST_MESSAGE)) == 0) ret = true;
-	std::cout << req << "should be " << TRAVEL_REQUEST_MESSAGE << "\n";
+	//std::cout << req << "should be " << TRAVEL_REQUEST_MESSAGE << "\n";
 
 	return ret;
 }
 std::string GameValueProvider::getStringReg(int regnum, int length) {
 	SIZE_T  lpNumberOfBytesRead;
 	//char travelReq[length + 1] = {};
-	std::vector<char> travelReq(length + 1); // j elements set to 0
-	
+	std::vector<char> travelReq(length+1); // j elements set to 0
 	DWORD addr = gameBaseAdress;
 	switch (regnum) {
 	case 0:
@@ -262,7 +260,8 @@ std::string GameValueProvider::getStringReg(int regnum, int length) {
 		break;
 	}
 	ReadProcessMemory(gameProcess, (void*)addr, &travelReq[0], length, &lpNumberOfBytesRead);
-	std::string req(travelReq.begin(), travelReq.end());
+	std::string req(travelReq.begin(), travelReq.end()-1);
+	//std::cout << "readstuff|" << req << "|\n";
 	return req;
 }
 int GameValueProvider::getRegAsInt(int regnum) {

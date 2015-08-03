@@ -5,6 +5,7 @@ e:\cppprojects\switcher\switcher\debug\stdafx.obj
 e:\cppprojects\switcher\switcher\debug\fileparser.obj
 e:\cppprojects\switcher\switcher\debug\gamevalueprovider.obj
 e:\cppprojects\switcher\switcher\debug\injector.obj
+e:\cppprojects\switcher\switcher\debug\iohandler.obj
 e:\cppprojects\switcher\switcher\debug\servergraph.obj
 e:\cppprojects\switcher\switcher\debug\serverswapper.obj
 e:\cppprojects\switcher\switcher\debug\socketmanager.obj
@@ -15,7 +16,6 @@ e:\cppprojects\switcher\switcher\debug\sssserverlistnavigator.obj
 e:\cppprojects\switcher\switcher\debug\sssspawnandpositioner.obj
 e:\cppprojects\switcher\switcher\debug\ssstate.obj
 e:\cppprojects\switcher\switcher\debug\switcher.obj
-e:\cppprojects\switcher\switcher\debug\iohandler.obj
 e:\cppprojects\switcher\debug\switcher.ilk
 e:\cppprojects\switcher\debug\switcher.exe
 e:\cppprojects\switcher\debug\switcher.pdb

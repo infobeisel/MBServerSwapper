@@ -2,13 +2,13 @@ Status:
       200      OK
       
 Response:
-0|map12345678901011|17|2|0|0|0|79.223.44.206|7240|1|map12345678901012|17|1|1|1|1|79.223.44.206|7242|2|map12345678901013|17|2|2|0|2|79.223.44.206|7242		
+		
       
 Headers:
 Connection: Keep-Alive
-Date: Mon, 15 Jun 2015 22:31:07 GMT
+Date: Mon, 03 Aug 2015 21:19:12 GMT
 Keep-Alive: timeout=5, max=100
-Content-Length: 151
+Content-Length: 2
 Content-Type: text/html
 Server: Apache/2.4.6 (Win32) PHP/5.4.17
 

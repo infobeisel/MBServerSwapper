@@ -2,6 +2,11 @@
 
 SSState::SSState()
 {
+	this->ip = std::string();
+	this->iplength = 0;
+	this->password = std::string();
+	this->port = 0;
+	this->passwordlength = 0;
 }
 
 SSState::~SSState()
