@@ -11,7 +11,9 @@ SSState::SSState()
 
 SSState::~SSState()
 {
-    //dtor
+	ip.clear();
+	password.clear();
+
 }
 
 
@@ -23,6 +25,7 @@ SSState* SSState::getNext(){
     if(this != newState) {
 		this->exit();
         newState->entry();
+		this->~SSState();
         return newState;
     } else {
         return this;

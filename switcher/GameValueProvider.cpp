@@ -26,6 +26,10 @@ void GameValueProvider::setProcessBaseAdress(DWORD adr) {
     this->gameBaseAdress = adr;
 }
 
+void GameValueProvider::setProcessD3D9Adress(DWORD adr) {
+	this->d3d9Adress = adr;
+}
+
 
 HWND* GameValueProvider::getProcessMainWindow( ) {
     return &gameMainWindow;
@@ -41,6 +45,15 @@ bool GameValueProvider::isClosed() {
     GetExitCodeProcess(gameProcess,&status);
     return status!=STILL_ACTIVE;
 }
+
+bool GameValueProvider::isFullScreen() {
+	DWORD addr = (d3d9Adress + GAME_IS_FULLSCREEN_ADDR_OFFSET);
+	int res = 0;
+	ReadProcessMemory(gameProcess, (void*)addr, &res, sizeof(res), NULL);
+	return (res == 1) ? true : false;
+
+}
+
 int* GameValueProvider::getResolution() {
     //first two vals ingame effective width, heigth, then window width, height, then positions as returned by GetWindowRect
     int res[] = {0,0,0,0,0,0,0,0};
@@ -240,7 +253,7 @@ bool GameValueProvider::wantsTravel() {
 std::string GameValueProvider::getStringReg(int regnum, int length) {
 	SIZE_T  lpNumberOfBytesRead;
 	//char travelReq[length + 1] = {};
-	std::vector<char> travelReq(length+1); // j elements set to 0
+	std::vector<char> travelReq(length + 1); // j elements set to 0
 	DWORD addr = gameBaseAdress;
 	switch (regnum) {
 	case 0:
@@ -258,10 +271,13 @@ std::string GameValueProvider::getStringReg(int regnum, int length) {
 	case 4:
 		addr = (gameBaseAdress + STRING_REG_4_ADDR_OFFSET);
 		break;
+	case 20:
+		addr = (gameBaseAdress + STRING_REG_20_ADDR_OFFSET);
+		break;
 	}
 	ReadProcessMemory(gameProcess, (void*)addr, &travelReq[0], length, &lpNumberOfBytesRead);
 	std::string req(travelReq.begin(), travelReq.end()-1);
-	//std::cout << "readstuff|" << req << "|\n";
+	std::cout << "readstuff|" << req << "| read bytes:" << lpNumberOfBytesRead << "in reg" << regnum<< "\n";
 	return req;
 }
 int GameValueProvider::getRegAsInt(int regnum) {

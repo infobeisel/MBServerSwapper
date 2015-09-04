@@ -25,10 +25,12 @@ SSSIdle::~SSSIdle()
         this->wantsSwitch = true;
         //store data
 		this->iplength = GameValueProvider::get()->getRegAsInt(0);
-		this->ip = GameValueProvider::get()->getStringReg(0, this->iplength);
 		this->port = GameValueProvider::get()->getRegAsInt(1);
 		this->passwordlength = GameValueProvider::get()->getRegAsInt(2);
+		this->ip = GameValueProvider::get()->getStringReg(20, this->iplength);
 		this->password = GameValueProvider::get()->getStringReg(1, this->passwordlength);
+
+		std::cout << "now search after " << this->ip << "with length" << this->iplength << "and port" << this->port<< "\n";
 
         //this->wishedTravelDir = t;
         //this->curIp = GameValueProvider::get()->getCurrentChosenIp();

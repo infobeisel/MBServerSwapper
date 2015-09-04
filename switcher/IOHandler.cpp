@@ -68,8 +68,13 @@ void IOHandler::setCursorPos(double percentX, double percentY) {
     double x = (double) percentX * (double)1e-2 * (double)*res;
     double y = (double) percentY * (double)1e-2 * (double)*(res+1);
     //windowed mode-> window offset
-    x += (double)(*(res + 5) + (double)(*(res + 2) - *(res + 0)) );
-    y += (double)(*(res + 7) + (double)(*(res + 3) - *(res + 1)) );
+	double framex = (double)(*(res + 2));
+	double framey = (double)(*(res + 3));
+
+	x += (double)(*(res + 5) + framex - *(res + 0));
+	y += (double)(*(res + 7) + framey - *(res + 1));
+	std::cout << (double)(*(res + 5) + framex - *(res + 0)) << "    " << (double)(*(res + 7) + framey - *(res + 1)) << "\n";
+	
     //use of windows-func
     SetCursorPos(round(x),round(y));
 

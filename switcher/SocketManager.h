@@ -25,6 +25,8 @@ class SocketManager
         and light modification to get base adress of game process**/
         DWORD getBaseAdress( DWORD dwPID );
 
+		DWORD getD3D9BaseAdress(DWORD dwPID);
+
 
 
 };

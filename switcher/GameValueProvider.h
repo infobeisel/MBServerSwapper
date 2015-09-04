@@ -35,6 +35,7 @@ class GameValueProvider
 
 
 		bool wantsTravel();
+		/**returns empty string if string reg starts with a space char**/
 		std::string getStringReg(int regnum,int length);
 		int getRegAsInt(int regnum);
 		float getRegAsFloat(int regnum);
@@ -56,6 +57,7 @@ class GameValueProvider
         void setProcessMainWindow(HWND hnd);
         HWND* getProcessMainWindow();
         void setProcessBaseAdress(DWORD adr);
+		void setProcessD3D9Adress(DWORD adr);
 
         HWND getGameMainWindow();
     protected:
@@ -64,6 +66,7 @@ class GameValueProvider
         HANDLE gameProcess;
         HWND    gameMainWindow;
         DWORD gameBaseAdress;
+		DWORD d3d9Adress;
         /** returns the final address the given pointer + offset array point on **/
         DWORD dereferencePointer(DWORD baseToPointerOffset,std::vector<DWORD> pointerToValuesOffsets);
         /** returns int value at given address **/

@@ -15,11 +15,11 @@ SSState* SSSSpawnAndPositioner::next() {
     //TODO
     SSState* newState = new SSSIdle();
 	//copy values
-	newState->ip = (this->ip);
-	newState->iplength = (this->iplength);
-	newState->password = (this->password);
-	newState->port = (this->port);
-	newState->passwordlength = (this->passwordlength);
+	newState->ip = "";
+	newState->iplength = 0;
+	newState->password = "";
+	newState->port = 0;
+	newState->passwordlength = 0;
 	return newState;
 
 }

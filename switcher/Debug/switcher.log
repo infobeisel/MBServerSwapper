@@ -1,4 +1,4 @@
-﻿Der Buildvorgang wurde am 04.08.2015 00:44:12 gestartet.
+﻿Der Buildvorgang wurde am 04.09.2015 12:36:29 gestartet.
      1>Projekt "E:\CppProjects\switcher\switcher\switcher.vcxproj" auf Knoten "2", Rebuild Ziel(e).
      1>ClCompile:
          E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _WINSOCK_DEPRECATED_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\switcher.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
@@ -17,20 +17,20 @@
          IOHandler.cpp
      1>e:\cppprojects\switcher\switcher\iohandler.cpp(2): warning C4005: '_WIN32_WINNT': Makro-Neudefinition
                  c:\program files (x86)\windows kits\8.1\include\shared\sdkddkver.h(200): Siehe vorherige Definition von '_WIN32_WINNT'
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(74): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(84): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts wird zurückgegeben
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(146): warning C4101: 'hMenuPopup': Unreferenzierte lokale Variable
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(247): warning C4101: 'res': Unreferenzierte lokale Variable
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(79): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(89): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts wird zurückgegeben
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(151): warning C4101: 'hMenuPopup': Unreferenzierte lokale Variable
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(252): warning C4101: 'res': Unreferenzierte lokale Variable
          injector.cpp
      1>e:\cppprojects\switcher\switcher\injector.cpp(244): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
      1>e:\cppprojects\switcher\switcher\injector.cpp(259): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
          GameValueProvider.cpp
-     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(69): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts wird zurückgegeben
-     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(143): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
-     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(162): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
+     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(82): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts wird zurückgegeben
+     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(156): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
+     1>e:\cppprojects\switcher\switcher\gamevalueprovider.cpp(175): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
          FileParser.cpp
          Code wird generiert...
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(140): warning C4715: "RegisterWindowClass": Nicht alle Steuerelementpfade geben einen Wert zurück.
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(145): warning C4715: "RegisterWindowClass": Nicht alle Steuerelementpfade geben einen Wert zurück.
        Link:
          E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\CppProjects\switcher\Debug\switcher.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\CppProjects\switcher\Debug\switcher.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\CppProjects\switcher\Debug\switcher.lib" /MACHINE:X86 Debug\FileParser.obj
          Debug\GameValueProvider.obj
@@ -52,4 +52,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:15.00
+Verstrichene Zeit 00:00:21.02
