@@ -54,7 +54,7 @@ void SSSServerFinder::process()
         {
             //from top
             hnd->setCursorPos(SERVER_LIST_FIRST_ENTRY_X,SERVER_LIST_FIRST_ENTRY_Y + (i * SERVER_LIST_NEXT_ENTRY_Y));
-            Sleep(5);
+			Sleep(CLICK_WAIT_TIME);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
 			std::cout <<"search |" <<  (this->ip) << "::" << this->port <<"|\n|";
@@ -68,7 +68,7 @@ void SSSServerFinder::process()
 
             //from bottom
             hnd->setCursorPos(SERVER_LIST_LAST_ENTRY_X,SERVER_LIST_LAST_ENTRY_Y - (i * SERVER_LIST_NEXT_ENTRY_Y));
-            Sleep(5);
+            Sleep(100);
             hnd->fireMouseClick(MOUSE_LEFT_CLICK);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
 			std::cout << g->getCurrentChosenIp() << "::" << g->getCurrentChosenPort() << "\n\n";

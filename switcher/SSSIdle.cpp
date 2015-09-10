@@ -45,12 +45,17 @@ SSSIdle::~SSSIdle()
     GameValueProvider::get()->flushInCharScreenMessage();
     GameValueProvider::get()->flushIsJoinedServerMessage();
     GameValueProvider::get()->flushTravelDirectionMessage();
+	
+	ShowCursor(TRUE);
 
 
 
 }
  void SSSIdle::exit() {
-	 IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
+	 IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow()); //start loading screen
+	 BlockInput(true);//block mouse input
+
+
 
  }
 

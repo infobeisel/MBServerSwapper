@@ -23,9 +23,9 @@ class SocketManager
 
         /** copypaste (https://msdn.microsoft.com/en-us/library/windows/desktop/ms686849%28v=vs.85%29.aspx)
         and light modification to get base adress of game process**/
-        DWORD getBaseAdress( DWORD dwPID );
 
-		DWORD getD3D9BaseAdress(DWORD dwPID);
+		DWORD getModuleBaseAdress(DWORD dwPID, std::string moduleName);
+
 
 
 

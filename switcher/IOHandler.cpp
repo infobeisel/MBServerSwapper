@@ -4,7 +4,7 @@
 #include "GameValueProvider.h"
 #include <iostream>
 #include <cmath>
-#include <d3dx9.h>
+//#include <d3dx9.h>
 #include <Commctrl.h>
 
 
@@ -40,8 +40,9 @@ void IOHandler::startLoadingAnimation(HWND window) {
 	
 	RECT rect;
 	GetWindowRect(window, &rect);
+	//SetWindowPos(animWindow, 0, -HIDEBORDERX, -HIDEBORDERY, 300 + HIDEBORDERX, 300 + HIDEBORDERY, SWP_NOACTIVATE);
+	ShowWindow(animWindow, SW_SHOWNOACTIVATE); 
 	SetWindowPos(animWindow, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
-	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
 	initAnimation(animWindow);
 	ShowCursor(FALSE);
 
@@ -73,7 +74,7 @@ void IOHandler::setCursorPos(double percentX, double percentY) {
 
 	x += (double)(*(res + 5) + framex - *(res + 0));
 	y += (double)(*(res + 7) + framey - *(res + 1));
-	std::cout << (double)(*(res + 5) + framex - *(res + 0)) << "    " << (double)(*(res + 7) + framey - *(res + 1)) << "\n";
+	//std::cout << (double)(*(res + 5) + framex - *(res + 0)) << "    " << (double)(*(res + 7) + framey - *(res + 1)) << "\n";
 	
     //use of windows-func
     SetCursorPos(round(x),round(y));
@@ -165,14 +166,15 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	HWND wind = GameValueProvider::get()->getGameMainWindow();
 
 	
-	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", pString, WS_MAXIMIZE | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST, -20, -40, 0, 0, wind, hMenu,NULL, NULL);
+	//HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", pString, WS_MAXIMIZE | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST, -HIDEBORDERX, -HIDEBORDERY, HIDEBORDERX, HIDEBORDERY, wind, hMenu, NULL, NULL);
+	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", pString,   WS_EX_TOPMOST, -HIDEBORDERX, -HIDEBORDERY, HIDEBORDERX, HIDEBORDERY, wind, hMenu, NULL, NULL);
 	RECT rect;
 	IOHandler::get()->setAnimWindow(hwnd);
-	GetWindowRect(hwnd, &rect);
-	SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
+	//GetWindowRect(hwnd, &rect);
+	//SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
 	//ShowWindow(hwnd, SW_SHOWNOACTIVATE);
 	ShowWindow(hwnd, SW_HIDE);
-	ShowCursor(TRUE);
+	//ShowCursor(FALSE);
 
 	initAnimation(hwnd);
 	//ShowCursor(FALSE);
@@ -215,7 +217,6 @@ static void initAnimation(HWND window) {
 
 		
 	}
-	
 	//select a loading image
 	diceNewImage(3);
 	redraw(window,& IOHandler::get()->loadingImages);
@@ -237,6 +238,7 @@ static void redraw(HWND window,std::vector<HBITMAP>* images){
 	GetWindowRect(window, &rect); // resolution
 	//error section
 
+	std::cout << "draw image at " << rect.right << " x " << rect.bottom << "\n";
 	std::wstringstream wss;
 	std::wstring str;
 	wss << error;
