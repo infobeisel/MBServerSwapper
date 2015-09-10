@@ -33,52 +33,66 @@ void SSSServerListNavigator::process(){
 
             IOHandler* hnd = IOHandler::get();
             Sleep(CLICK_WAIT_TIME);
+			Sleep(CLICK_WAIT_TIME);
+			Sleep(CLICK_WAIT_TIME);
+			Sleep(CLICK_WAIT_TIME);
+			Sleep(CLICK_WAIT_TIME);
 
             //click on "ok" (message box: kicked by server)
             hnd->setCursorPos(BUTTON_KICKED_OK_X,BUTTON_KICKED_OK_Y);
+			Sleep(200);
             hnd->fireMouseClick(0);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             //click on "entry server"
             hnd->setCursorPos(BUTTON_JOIN_SERVER_LIST_X,BUTTON_JOIN_SERVER_LIST_Y);
+			Sleep(200);
             hnd->fireMouseClick(0);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             //click on network dropdown menu
             hnd->setCursorPos(BUTTON_DROP_DOWN_NETWORK_X,BUTTON_DROP_DOWN_NETWORK_Y);
+			Sleep(200);
            hnd->fireMouseClick(0);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             //click on Internet
             hnd->setCursorPos(BUTTON_DROP_DOWN_NETWORK_INTERNET_X,BUTTON_DROP_DOWN_NETWORK_INTERNET_Y);
+			Sleep(200);
             hnd->fireMouseClick(0);
             Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             //click on filter panel
             if(!g->isFilterPanelOpen()) {
                 hnd->setCursorPos(BUTTON_FILTER_PANEL_X,BUTTON_FILTER_PANEL_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }
             if(g->isHasPlayersFilterChecked()) {
                 hnd->setCursorPos(BUTTON_FILTER_HAS_PLAYERS_X,BUTTON_FILTER_HAS_PLAYERS_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }
             //uncheck everything except is version compatible TODO
             if(!g->isVersionCompatibleChecked()) {
                 hnd->setCursorPos(BUTTON_FILTER_IS_VERSION_COMPATIBLE_X,BUTTON_FILTER_IS_VERSION_COMPATIBLE_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }
             if(g->isPasswordFreeChecked()) {
                 hnd->setCursorPos(BUTTON_FILTER_IS_PASSWORD_FREE_X,BUTTON_FILTER_IS_PASSWORD_FREE_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }
             while(g->getMatchModeFilterIndex() != 0) {
                 hnd->setCursorPos(BUTTON_FILTER_MATCH_MODE_PREV_X,BUTTON_FILTER_MATCH_MODE_PREV_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }
             while(g->getPingLimitFilterIndex() != 0) {
                 hnd->setCursorPos(BUTTON_FILTER_PING_LIMIT_PREV_X,BUTTON_FILTER_PING_LIMIT_PREV_Y);
+				Sleep(200);
                 hnd->fireMouseClick(0);
                 Sleep(SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ);
             }

@@ -27,6 +27,20 @@ void SocketManager::init() {
 	//wait for game process
     HWND found = FindWindowW(NULL,GAME_NAME);
     std::cout << "Searching for game... (NOTE: Open this tool, when and only when you are already ingame, NOT in the launcher!) \n";
+
+	//Searching for the Launcher
+	while (found == NULL) {
+		found = FindWindowW(NULL, GAME_NAME);
+		
+	}
+		//waiting for it to be closed
+		while (found != NULL) {
+		found = FindWindowW(NULL, GAME_NAME);
+		
+	}
+	
+		//now searching for the real game...bit ugly solution
+
     while(found == NULL) {
         found = FindWindowW(NULL,GAME_NAME);
     }
@@ -41,8 +55,10 @@ void SocketManager::init() {
     gameValues = GameValueProvider::get();
     gameValues->setProcessHandle(processHndl);
     gameValues->setProcessMainWindow(found);
-    DWORD base = getBaseAdress(processId);
-	DWORD d3d9base = getD3D9BaseAdress(processId);
+
+	DWORD base = getModuleBaseAdress(processId, "mb_warband.exe");
+	DWORD d3d9base = getModuleBaseAdress(processId, "d3d9.dll");
+
     gameValues->setProcessBaseAdress(base);
 	gameValues->setProcessD3D9Adress(d3d9base);
     //setup the server swapper
@@ -69,58 +85,8 @@ void SocketManager::run() {
 
 
 
-DWORD SocketManager::getBaseAdress( DWORD dwPID ) {
-     HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
-      MODULEENTRY32 me32;
 
-    //  Take a snapshot of all modules in the specified process.
-      hModuleSnap = CreateToolhelp32Snapshot( TH32CS_SNAPMODULE, dwPID );
-      if( hModuleSnap == INVALID_HANDLE_VALUE )
-      {
-        std::cout << "SocketManager::getBaseAdress : ERROR :can't get process' modules snapshot.";
-        return (DWORD) -1;
-      }
-
-    //  Set the size of the structure before using it.
-      me32.dwSize = sizeof( MODULEENTRY32 );
-
-    //  Retrieve information about the first module,
-    //  and exit if unsuccessful
-      if( !Module32First( hModuleSnap, &me32 ) )
-      {
-        std::cout << "SocketManager::getBaseAdress : ERROR :can't get first process module.";
-        CloseHandle( hModuleSnap );     // Must clean up the snapshot object!
-        return (DWORD)-1;
-      }
-      Module32First( hModuleSnap, &me32 );
-      DWORD ret = (DWORD) me32.modBaseAddr ;
-      //std::cout <<  ret << "\n";//<< "   " << me32.modBaseAddr << "\n";
-    /**don't need, main module is first module (above)**/
-    //  Now walk the module list of the process,
-    //  and display information about each module
-
-    /*     do
-      {
-       _tprintf( TEXT("\n\n     MODULE NAME:     %s"),             me32.szModule );
-        _tprintf( TEXT("\n     executable     = %s"),             me32.szExePath );
-        _tprintf( TEXT("\n     process ID     = 0x%08X"),         me32.th32ProcessID );
-        _tprintf( TEXT("\n     ref count (g)  =     0x%04X"),     me32.GlblcntUsage );
-        _tprintf( TEXT("\n     ref count (p)  =     0x%04X"),     me32.ProccntUsage );
-        _tprintf( TEXT("\n     base address   = 0x%08X"), (DWORD) me32.modBaseAddr );
-        _tprintf( TEXT("\n     base size      = %d"),             me32.modBaseSize );
-        //std::cout << me32.szModule << "\n";
-
-      } while( Module32Next( hModuleSnap, &me32 ) );
-    */
-
-    //  Do not forget to clean up the snapshot object.
-      CloseHandle( hModuleSnap );
-      return ret;
-}
-
-
-
-DWORD SocketManager::getD3D9BaseAdress(DWORD dwPID) {
+DWORD SocketManager::getModuleBaseAdress(DWORD dwPID,std::string moduleName) {
 	HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
 	MODULEENTRY32 me32;
 
@@ -170,7 +136,7 @@ DWORD SocketManager::getD3D9BaseAdress(DWORD dwPID) {
 	//A std:string  using the char* constructor.
 	std::string ss(ch);
 	//std::cout << ss << "  \n ";
-	if (ss.compare(std::string("d3d9.dll")) == 0) break;
+	if (ss.compare(moduleName) == 0) break;
 	} while( Module32Next( hModuleSnap, &me32 ) );
 	DWORD ret = (DWORD)me32.modBaseAddr;
 

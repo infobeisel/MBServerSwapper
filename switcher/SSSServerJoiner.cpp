@@ -17,7 +17,7 @@ void SSSServerJoiner::process() {
     //click on join
     IOHandler* hnd = IOHandler::get();
     hnd->setCursorPos(BUTTON_JOIN_SERVER_X,BUTTON_JOIN_SERVER_Y);
-    Sleep(5);
+    Sleep(200);
     hnd->fireMouseClick(MOUSE_LEFT_CLICK);
     Sleep(CLICK_WAIT_TIME);
 }
@@ -31,7 +31,8 @@ void SSSServerJoiner::entry() {
 
 }
 void SSSServerJoiner::exit() {
-	IOHandler::get()->stopLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
+	//IOHandler::get()->stopLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
+	BlockInput(false);//block mouse input
 
 }
 

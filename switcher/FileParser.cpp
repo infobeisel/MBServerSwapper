@@ -37,14 +37,14 @@ std::vector<std::string> FileParser::readEntries()
 	{
 		ReadFile(file, &buf, FILE_MAX_CHARS, NULL, NULL);
 		char delimiter[] = "|";
-		char* p = strtok(buf, delimiter);
+/*		char* p = strtok(buf, delimiter);
 		//up to the end of file
 		while (p != NULL) {
 			std::string str = std::string(p);
 			//std::cout << str << "\n";
 			p = strtok(NULL, delimiter);
 			res.insert(res.end(), str);
-		}
+		}*/
 	}
 	return res;
 }

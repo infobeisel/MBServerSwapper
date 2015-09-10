@@ -4,7 +4,6 @@
 #include "GameValueProvider.h"
 #include <iostream>
 #include <cmath>
-#include <d3dx9.h>
 #include <Commctrl.h>
 
 
