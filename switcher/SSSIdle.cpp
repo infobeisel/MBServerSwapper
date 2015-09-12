@@ -50,7 +50,7 @@ SSSIdle::~SSSIdle()
 
 }
  void SSSIdle::exit() {
-	 //IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
+	 IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
 	 BlockInput(true);//block mouse input
 
  }

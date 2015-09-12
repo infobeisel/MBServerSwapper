@@ -37,21 +37,28 @@ IOHandler::~IOHandler()
 
 void IOHandler::startLoadingAnimation(HWND window) {
 	
-	RECT rect;
-	GetWindowRect(window, &rect);
-	SetWindowPos(animWindow, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
-	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
+	
+	SetForegroundWindow(animWindow);
+	ShowWindow(animWindow, SW_SHOW);
+	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
+	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
+	ShowWindow(window, SW_SHOW);
+	SetForegroundWindow(window);
 	initAnimation(animWindow);
-	ShowCursor(FALSE);
+	ShowCursor(false);
+
 
 }
 
 void IOHandler::stopLoadingAnimation(HWND window) {
 	
-	RECT rect;
-	GetWindowRect(window, &rect);
-	SetWindowPos(animWindow,NULL, -20, -40, 0, 0, SWP_NOACTIVATE);
-	ShowWindow(animWindow, SW_SHOWNOACTIVATE);
+	ShowWindow(animWindow, SW_HIDE);
+	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
+	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 100) / 100, LWA_ALPHA);
+	ShowWindow(window, SW_SHOW);
+	SetForegroundWindow(window);
+	ShowCursor(true);
+
 
 }
 
@@ -162,23 +169,16 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	HMENU hMenu = CreateDLLWindowMenu();
 	RegisterWindowClass(L"InjectedWindowClass");
 	HWND wind = GameValueProvider::get()->getGameMainWindow();
-
-	
-	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", pString, WS_MAXIMIZE | WS_EX_OVERLAPPEDWINDOW | WS_EX_TOPMOST, -20, -40, 0, 0, wind, hMenu,NULL, NULL);
 	RECT rect;
+	GetWindowRect(wind, &rect);
+	if (GameValueProvider::get()->isFullScreen()) {
+		rect.right = GetSystemMetrics( SM_CXFULLSCREEN);
+		rect.bottom = GetSystemMetrics(SM_CYFULLSCREEN);
+	}
+	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", NULL, WS_POPUP|WS_EX_LAYERED, 0, 0, rect.right, rect.bottom, NULL, hMenu, NULL, NULL);
 	IOHandler::get()->setAnimWindow(hwnd);
-	GetWindowRect(hwnd, &rect);
-	SetWindowPos(hwnd, 0, -HIDEBORDERX, -HIDEBORDERY, rect.right + HIDEBORDERX, rect.bottom + HIDEBORDERY, SWP_NOACTIVATE);
-	//ShowWindow(hwnd, SW_SHOWNOACTIVATE);
 	ShowWindow(hwnd, SW_HIDE);
-	ShowCursor(TRUE);
 
-	initAnimation(hwnd);
-	//ShowCursor(FALSE);
-
-	//SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE ) | WS_EX_LAYERED);
-	// Make this window 70% alpha
-	//SetLayeredWindowAttributes(hwnd, 0, (255 * 70) / 100, LWA_ALPHA);
 	while (GetMessage(&messages, NULL, 0, 0))
 	{
 		TranslateMessage(&messages);

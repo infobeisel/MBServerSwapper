@@ -26,7 +26,7 @@ void SocketManager::init() {
 	std::cout << "\nServer-Swap-Tool brought to you by piluspalus aka Henker \n \n";
 	//wait for game process
     HWND found = FindWindowW(NULL,GAME_NAME);
-    std::cout << "Searching for game... (NOTE: Open this tool, when and only when you are already ingame, NOT in the launcher!) \n";
+    std::cout << "Waiting for game... \n";
 
 	//Searching for the Launcher
 	while (found == NULL) {
@@ -40,7 +40,7 @@ void SocketManager::init() {
 	}
 	
 		//now searching for the real game...bit ugly solution
-
+		
     while(found == NULL) {
         found = FindWindowW(NULL,GAME_NAME);
     }
