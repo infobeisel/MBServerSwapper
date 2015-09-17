@@ -42,8 +42,6 @@ void IOHandler::startLoadingAnimation(HWND window) {
 	ShowWindow(animWindow, SW_SHOW);
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
-	ShowWindow(window, SW_SHOW);
-	SetForegroundWindow(window);
 	initAnimation(animWindow);
 	ShowCursor(false);
 
@@ -172,10 +170,13 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	RECT rect;
 	GetWindowRect(wind, &rect);
 	if (GameValueProvider::get()->isFullScreen()) {
-		rect.right = GetSystemMetrics( SM_CXFULLSCREEN);
-		rect.bottom = GetSystemMetrics(SM_CYFULLSCREEN);
+		rect.right = (int) GetSystemMetrics(SM_CXSCREEN);
+		rect.bottom = (int)GetSystemMetrics(SM_CYSCREEN);
 	}
 	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", NULL, WS_POPUP|WS_EX_LAYERED, 0, 0, rect.right, rect.bottom, NULL, hMenu, NULL, NULL);
+	if (GameValueProvider::get()->isFullScreen()) {
+
+	}
 	IOHandler::get()->setAnimWindow(hwnd);
 	ShowWindow(hwnd, SW_HIDE);
 

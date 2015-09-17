@@ -27,7 +27,7 @@ void SocketManager::init() {
 	//wait for game process
     HWND found = FindWindowW(NULL,GAME_NAME);
     std::cout << "Waiting for game... \n";
-
+	
 	//Searching for the Launcher
 	while (found == NULL) {
 		found = FindWindowW(NULL, GAME_NAME);
@@ -64,6 +64,7 @@ void SocketManager::init() {
     //setup the server swapper
     swapper = new ServerSwapper();
 	IOHandler::get()->initAnimationWindow(found);
+
 	
 
 }
