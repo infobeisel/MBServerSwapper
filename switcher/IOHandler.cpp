@@ -42,6 +42,7 @@ void IOHandler::startLoadingAnimation(HWND window) {
 	ShowWindow(animWindow, SW_SHOW);
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
+	SetForegroundWindow(window);
 	initAnimation(animWindow);
 	ShowCursor(false);
 
