@@ -28,11 +28,14 @@ void SSSServerFinder::entry()
     IOHandler* hnd = IOHandler::get();
     hnd->setCursorPos(BUTTON_REFRESH_SERVER_LIST_X,BUTTON_REFRESH_SERVER_LIST_Y);
     Sleep(100);
+	//stop collecting server infos. NO, just start to search
+	/*
 	if (GameValueProvider::get()->îsRetrievingServerInfos())
 	{
 		hnd->fireMouseClick(MOUSE_LEFT_CLICK);
 	}
-    Sleep(CLICK_WAIT_TIME);
+	
+    Sleep(CLICK_WAIT_TIME);*/
 }
 void SSSServerFinder::process()
 {

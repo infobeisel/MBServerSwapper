@@ -22,7 +22,7 @@
 
 
 /** Time in ms to wait between clicks  (=menu traversation) **/
-#define CLICK_WAIT_TIME 1500
+#define CLICK_WAIT_TIME 700
 
 /** travel direction **/
 #define TRAVEL_DIR_NOOP -1
@@ -110,7 +110,7 @@
 #define SERVER_LIST_INFO_SCROLLDOWN_STEPS 2
 #define SERVER_LIST_INFO_WAIT_TIME_UNTIL_IP_READ 200
 /** Time in ms to wait for game to fill server list **/
-#define SERVER_LIST_INFO_WAIT_TIME 30000
+#define SERVER_LIST_INFO_WAIT_TIME 1000
 
 /** navigating in the filter panel inside the server list. "Base"-pointer address is the same for all entries of this panel **/
 #define FILTER_PANEL_POINTER_OFFSET 10329264
