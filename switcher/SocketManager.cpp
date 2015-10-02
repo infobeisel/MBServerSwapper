@@ -64,8 +64,6 @@ void SocketManager::init() {
     //setup the server swapper
     swapper = new ServerSwapper();
 	IOHandler::get()->initAnimationWindow(found);
-	Sleep(10000);
-	IOHandler::get()->startLoadingAnimation(found);
 
 
 	
