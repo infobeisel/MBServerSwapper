@@ -37,12 +37,26 @@ IOHandler::~IOHandler()
 
 void IOHandler::startLoadingAnimation(HWND window) {
 	
-	
-	SetForegroundWindow(animWindow);
-	ShowWindow(animWindow, SW_SHOW);
+	RECT rect;
+	GetWindowRect(window, &rect);
+	if (GameValueProvider::get()->isFullScreen()) {
+		rect.right = (int)GetSystemMetrics(SM_CXSCREEN);
+		rect.bottom = (int)GetSystemMetrics(SM_CYSCREEN);
+	}
+
+
+	SetWindowPos(animWindow, NULL,
+		_In_     rect.left,
+		_In_     rect.top,
+		_In_     rect.right,
+		_In_     rect.bottom,
+		SWP_NOREDRAW | SWP_SHOWWINDOW | SWP_NOACTIVATE
+		);
+
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
-	SetForegroundWindow(window);
+	IOHandler::get()->setWindowToForeground(window);
+
 	initAnimation(animWindow);
 	ShowCursor(false);
 
@@ -52,12 +66,34 @@ void IOHandler::startLoadingAnimation(HWND window) {
 void IOHandler::stopLoadingAnimation(HWND window) {
 	
 	ShowWindow(animWindow, SW_HIDE);
+	//setWindowToForeground(animWindow);
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 100) / 100, LWA_ALPHA);
-	ShowWindow(window, SW_SHOW);
-	SetForegroundWindow(window);
+	//ShowWindow(window, SW_SHOW);
+	//setWindowToForeground(window);
+
 	ShowCursor(true);
 
+
+}
+
+
+void IOHandler::setWindowToForeground(HWND window) {
+	DWORD foreThread = GetWindowThreadProcessId(GetForegroundWindow(), NULL);
+	DWORD appThread = GetCurrentThreadId();
+
+	if (foreThread != appThread)
+	{
+		AttachThreadInput(foreThread, appThread, true);
+		BringWindowToTop(window);
+		ShowWindow(window, SW_SHOW);
+		AttachThreadInput(foreThread, appThread, false);
+	}
+	else
+	{
+		BringWindowToTop(window);
+		ShowWindow(window, SW_SHOW);
+	}
 
 }
 
@@ -174,7 +210,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 		rect.right = (int) GetSystemMetrics(SM_CXSCREEN);
 		rect.bottom = (int)GetSystemMetrics(SM_CYSCREEN);
 	}
-	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", NULL, WS_POPUP|WS_EX_LAYERED, 0, 0, rect.right, rect.bottom, NULL, hMenu, NULL, NULL);
+	HWND hwnd = CreateWindowEx(0, L"InjectedWindowClass", NULL,  WS_POPUP | WS_EX_LAYERED, 0, 0, rect.right, rect.bottom, NULL, hMenu, NULL, NULL);
 	if (GameValueProvider::get()->isFullScreen()) {
 
 	}
@@ -183,6 +219,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 
 	while (GetMessage(&messages, NULL, 0, 0))
 	{
+
 		TranslateMessage(&messages);
 		DispatchMessage(&messages);
 	}
@@ -197,10 +234,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	wss << message;
 	wss >> str;
 	LPCWSTR result = str.c_str();
+	//std::cout << message << "||\n";
+
 	switch (message)
 	{
+
 	case WM_MOUSEACTIVATE:
 		return MA_NOACTIVATEANDEAT;
+	case 71:
+		//std::cout << "wm show!" << "\n";
+		IOHandler::get()->setWindowToForeground(hwnd);
+
+		return DefWindowProc(hwnd, message, wParam, lParam);
 	default:
 		return DefWindowProc(hwnd, message, wParam, lParam);
 	}

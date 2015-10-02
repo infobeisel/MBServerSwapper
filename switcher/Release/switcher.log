@@ -1,8 +1,14 @@
-﻿Der Buildvorgang wurde am 20.09.2015 21:57:56 gestartet.
+﻿Der Buildvorgang wurde am 02.10.2015 14:41:00 gestartet.
      1>Projekt "E:\CppProjects\switcher\switcher\switcher.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt SSSServerFinder.cpp
-         SSSServerFinder.cpp
+         E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt IOHandler.cpp
+         IOHandler.cpp
+     1>IOHandler.cpp(2): warning C4005: '_WIN32_WINNT': Makro-Neudefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\sdkddkver.h(200): Siehe vorherige Definition von '_WIN32_WINNT'
+     1>IOHandler.cpp(120): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>IOHandler.cpp(130): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts wird zurückgegeben
+     1>IOHandler.cpp(192): warning C4101: 'hMenuPopup': Unreferenzierte lokale Variable
+     1>IOHandler.cpp(298): warning C4101: 'res': Unreferenzierte lokale Variable
        Link:
          E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\CppProjects\switcher\Release\switcher.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='requireAdministrator' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\CppProjects\switcher\Release\switcher.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\CppProjects\switcher\Release\switcher.lib" /MACHINE:X86 /SAFESEH Release\FileParser.obj
          Release\GameValueProvider.obj
@@ -20,11 +26,11 @@
          Release\stdafx.obj
          Release\switcher.obj
          Code wird generiert.
-     1>e:\cppprojects\switcher\switcher\iohandler.cpp(150): warning C4715: "RegisterWindowClass": Nicht alle Steuerelementpfade geben einen Wert zurück.
+     1>e:\cppprojects\switcher\switcher\iohandler.cpp(186): warning C4715: "RegisterWindowClass": Nicht alle Steuerelementpfade geben einen Wert zurück.
          Codegenerierung ist abgeschlossen.
          switcher.vcxproj -> E:\CppProjects\switcher\Release\switcher.exe
      1>Die Erstellung des Projekts "E:\CppProjects\switcher\switcher\switcher.vcxproj" ist abgeschlossen, Build Ziel(e).
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:03.53
+Verstrichene Zeit 00:00:03.63

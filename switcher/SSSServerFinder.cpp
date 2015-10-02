@@ -88,6 +88,7 @@ void SSSServerFinder::process()
         Sleep(CLICK_WAIT_TIME);
         Sleep(CLICK_WAIT_TIME);
         Sleep(CLICK_WAIT_TIME);
+		while (!GameValueProvider::get()->isGameInForeground()) { Sleep(CLICK_WAIT_TIME); }
 
     }
 }

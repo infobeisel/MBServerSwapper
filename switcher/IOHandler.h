@@ -31,6 +31,7 @@ class IOHandler
 
 		HANDLE getAnimationThread() { return hThreadArray[0]; }
 		void setAnimWindow(HWND window) { animWindow = window; };
+		void setWindowToForeground(HWND window);
 
 		int activeLoadingImageIndex;
 		std::vector<HBITMAP> loadingImages;

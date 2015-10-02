@@ -35,14 +35,14 @@ void SocketManager::init() {
 	}
 		//waiting for it to be closed
 		while (found != NULL) {
-		found = FindWindowW(NULL, GAME_NAME);
+			found = FindWindowW(NULL, GAME_NAME);
 		
 	}
 	
 		//now searching for the real game...bit ugly solution
 		
     while(found == NULL) {
-        found = FindWindowW(NULL,GAME_NAME);
+		found = FindWindowW(NULL, GAME_NAME);
     }
     std::cout << "\n" << "game found!"<< "\n";
 
@@ -64,6 +64,9 @@ void SocketManager::init() {
     //setup the server swapper
     swapper = new ServerSwapper();
 	IOHandler::get()->initAnimationWindow(found);
+	Sleep(10000);
+	IOHandler::get()->startLoadingAnimation(found);
+
 
 	
 
