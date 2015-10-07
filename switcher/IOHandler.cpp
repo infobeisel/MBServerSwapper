@@ -1,5 +1,7 @@
 #include "IOHandler.h"
 #define _WIN32_WINNT 0x0500 // need this for having the INPUT-datastructure
+#define WM_LOADINGSCREEN WM_USER+0
+
 
 #include "GameValueProvider.h"
 #include <iostream>
@@ -46,16 +48,22 @@ void IOHandler::startLoadingAnimation(HWND window) {
 
 
 	SetWindowPos(animWindow, NULL,
-		_In_     rect.left,
-		_In_     rect.top,
-		_In_     rect.right,
-		_In_     rect.bottom,
+	  	     rect.left,
+		     rect.top,
+		     rect.right,
+		     rect.bottom,
 		SWP_NOREDRAW | SWP_SHOWWINDOW | SWP_NOACTIVATE
 		);
 
+
+
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
-	IOHandler::get()->setWindowToForeground(window);
+	//set animWindow to Foreground (to paint over other windows which were activated while playing the game)
+	SendMessage(animWindow, WM_LOADINGSCREEN, 0, 0);
+
+	//set this window to foreground again
+	setWindowToForeground(window);
 
 	initAnimation(animWindow);
 	ShowCursor(false);
@@ -65,13 +73,11 @@ void IOHandler::startLoadingAnimation(HWND window) {
 
 void IOHandler::stopLoadingAnimation(HWND window) {
 	
-	ShowWindow(animWindow, SW_HIDE);
 	//setWindowToForeground(animWindow);
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 100) / 100, LWA_ALPHA);
-	//ShowWindow(window, SW_SHOW);
 	//setWindowToForeground(window);
-
+	ShowWindow(animWindow, SW_HIDE);
 	ShowCursor(true);
 
 
@@ -241,11 +247,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_MOUSEACTIVATE:
 		return MA_NOACTIVATEANDEAT;
-	case 71:
-		//std::cout << "wm show!" << "\n";
+	case WM_LOADINGSCREEN:
+		std::cout <<"message:" << message << "  wParam: " << &wParam << " lParam : " << lParam << "||\n";
 		IOHandler::get()->setWindowToForeground(hwnd);
-
-		return DefWindowProc(hwnd, message, wParam, lParam);
+		return 1;
 	default:
 		return DefWindowProc(hwnd, message, wParam, lParam);
 	}
