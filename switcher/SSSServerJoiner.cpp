@@ -34,6 +34,7 @@ void SSSServerJoiner::exit() {
 	IOHandler::get()->stopLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
 	BlockInput(false);//block mouse input
 
+
 }
 
 SSState* SSSServerJoiner::next()

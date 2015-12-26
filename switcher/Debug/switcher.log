@@ -1,4 +1,4 @@
-﻿Der Buildvorgang wurde am 04.09.2015 12:36:29 gestartet.
+﻿Der Buildvorgang wurde am 04.09.2015 22:28:50 gestartet.
      1>Projekt "E:\CppProjects\switcher\switcher\switcher.vcxproj" auf Knoten "2", Rebuild Ziel(e).
      1>ClCompile:
          E:\Programme (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _WINSOCK_DEPRECATED_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\switcher.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
@@ -52,4 +52,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:21.02
+Verstrichene Zeit 00:00:14.45

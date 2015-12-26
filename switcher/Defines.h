@@ -24,6 +24,7 @@
 /** Time in ms to wait between clicks  (=menu traversation) **/
 #define CLICK_WAIT_TIME 700
 
+
 /** travel direction **/
 #define TRAVEL_DIR_NOOP -1
 #define TRAVEL_DIR_REJOIN -2

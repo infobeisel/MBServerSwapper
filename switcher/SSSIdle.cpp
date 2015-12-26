@@ -45,6 +45,8 @@ SSSIdle::~SSSIdle()
     GameValueProvider::get()->flushInCharScreenMessage();
     GameValueProvider::get()->flushIsJoinedServerMessage();
     GameValueProvider::get()->flushTravelDirectionMessage();
+	
+	ShowCursor(TRUE);
 
 
 
@@ -53,6 +55,7 @@ SSSIdle::~SSSIdle()
 	 BlockInput(true);//block mouse input
 	 IOHandler::get()->startLoadingAnimation(GameValueProvider::get()->getGameMainWindow());
 	 
+
 
  }
 

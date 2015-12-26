@@ -27,7 +27,7 @@ void SocketManager::init() {
 	//wait for game process
     HWND found = FindWindowW(NULL,GAME_NAME);
     std::cout << "Waiting for game... \n";
-	
+
 	//Searching for the Launcher
 	while (found == NULL) {
 		found = FindWindowW(NULL, GAME_NAME);
@@ -43,8 +43,12 @@ void SocketManager::init() {
 		
     while(found == NULL) {
 		found = FindWindowW(NULL, GAME_NAME);
+
     }
     std::cout << "\n" << "game found!"<< "\n";
+	// high priority to this process
+	HANDLE proc = GetCurrentProcess();
+	SetPriorityClass(proc, HIGH_PRIORITY_CLASS);
 
     // get the process id out of the window handle
     DWORD processId;
@@ -58,6 +62,7 @@ void SocketManager::init() {
 
 	DWORD base = getModuleBaseAdress(processId, "mb_warband.exe");
 	DWORD d3d9base = getModuleBaseAdress(processId, "d3d9.dll");
+
 
     gameValues->setProcessBaseAdress(base);
 	gameValues->setProcessD3D9Adress(d3d9base);
@@ -89,6 +94,7 @@ void SocketManager::run() {
 
 
 DWORD SocketManager::getModuleBaseAdress(DWORD dwPID,std::string moduleName) {
+
 	HANDLE hModuleSnap = INVALID_HANDLE_VALUE;
 	MODULEENTRY32 me32;
 
@@ -113,13 +119,13 @@ DWORD SocketManager::getModuleBaseAdress(DWORD dwPID,std::string moduleName) {
 	}
 	Module32First(hModuleSnap, &me32);
 	//Module32Next(hModuleSnap, &me32);
-	
+
 	//std::cout <<  ret << "\n";//<< "   " << me32.modBaseAddr << "\n";
 	/**don't need, main module is first module (above)**/
 	//  Now walk the module list of the process,
 	//  and display information about each module
 
-	     do
+	do
 	{
 	//printf( "\n\n     MODULE NAME:     %s",             me32.szModule );
 	//_tprintf( TEXT("\n     executable     = %s"),             me32.szExePath );
@@ -140,10 +146,10 @@ DWORD SocketManager::getModuleBaseAdress(DWORD dwPID,std::string moduleName) {
 	//std::cout << ss << "  \n ";
 	if (ss.compare(moduleName) == 0) break;
 	} while( Module32Next( hModuleSnap, &me32 ) );
+
 	DWORD ret = (DWORD)me32.modBaseAddr;
 
 	//  Do not forget to clean up the snapshot object.
 	CloseHandle(hModuleSnap);
 	return ret;
 }
-

@@ -6,6 +6,7 @@
 #include "GameValueProvider.h"
 #include <iostream>
 #include <cmath>
+
 #include <Commctrl.h>
 
 
@@ -65,7 +66,6 @@ void IOHandler::startLoadingAnimation(HWND window) {
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
 	
 
-	
 
 	initAnimation(animWindow);
 	ShowCursor(false);
@@ -212,6 +212,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	HMENU hMenu = CreateDLLWindowMenu();
 	RegisterWindowClass(L"InjectedWindowClass");
 	HWND wind = GameValueProvider::get()->getGameMainWindow();
+
 	RECT rect;
 	GetWindowRect(wind, &rect);
 	if (GameValueProvider::get()->isFullScreen()) {
@@ -224,6 +225,7 @@ DWORD WINAPI ThreadProc(LPVOID lpParam)
 	}
 	IOHandler::get()->setAnimWindow(hwnd);
 	ShowWindow(hwnd, SW_HIDE);
+
 
 	while (GetMessage(&messages, NULL, 0, 0))
 	{
@@ -268,7 +270,6 @@ static void initAnimation(HWND window) {
 
 		
 	}
-	
 	//select a loading image
 	diceNewImage(3);
 	redraw(window,& IOHandler::get()->loadingImages);
@@ -290,6 +291,7 @@ static void redraw(HWND window,std::vector<HBITMAP>* images){
 	GetWindowRect(window, &rect); // resolution
 	//error section
 
+	std::cout << "draw image at " << rect.right << " x " << rect.bottom << "\n";
 	std::wstringstream wss;
 	std::wstring str;
 	wss << error;
