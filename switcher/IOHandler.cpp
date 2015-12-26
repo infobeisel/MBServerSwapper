@@ -56,14 +56,16 @@ void IOHandler::startLoadingAnimation(HWND window) {
 		);
 
 
+	//set animWindow to Foreground (to paint over other windows which were activated while playing the game)
+	SendMessageTimeout(animWindow, WM_LOADINGSCREEN, 0, 0, SMTO_NORMAL, 3000, NULL);
+	//set this window to foreground again
+	setWindowToForeground(window);
 
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) | WS_EX_LAYERED);
 	SetLayeredWindowAttributes(window, RGB(0, 0, 0), (255 * 2) / 100, LWA_ALPHA);
-	//set animWindow to Foreground (to paint over other windows which were activated while playing the game)
-	SendMessage(animWindow, WM_LOADINGSCREEN, 0, 0);
+	
 
-	//set this window to foreground again
-	setWindowToForeground(window);
+	
 
 	initAnimation(animWindow);
 	ShowCursor(false);
